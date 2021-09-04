@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/auction-frontend/static/css/main.5884acba.chunk.css",
-    "main.js": "/auction-frontend/static/js/main.632edd3c.chunk.js",
-    "main.js.map": "/auction-frontend/static/js/main.632edd3c.chunk.js.map",
+    "main.js": "/auction-frontend/static/js/main.161cb069.chunk.js",
+    "main.js.map": "/auction-frontend/static/js/main.161cb069.chunk.js.map",
     "runtime-main.js": "/auction-frontend/static/js/runtime-main.6ca48b6f.js",
     "runtime-main.js.map": "/auction-frontend/static/js/runtime-main.6ca48b6f.js.map",
     "static/js/2.905d93c4.chunk.js": "/auction-frontend/static/js/2.905d93c4.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.6ca48b6f.js",
     "static/js/2.905d93c4.chunk.js",
     "static/css/main.5884acba.chunk.css",
-    "static/js/main.632edd3c.chunk.js"
+    "static/js/main.161cb069.chunk.js"
   ]
 }
