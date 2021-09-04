@@ -37,7 +37,7 @@ function Lisiting({isLogged,value}) {
         setBid(e.target.value);
     }
     const commentButton=(e)=>{
-        authAxios.post("http://mhodsaifansari.pythonanywhere.com/api/comment/"+value,{'comment_text':Comment})
+        authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/comment/"+value,{'comment_text':Comment})
         .then((data)=>{console.log(data)
             getLisitingData(value)
             .then((data)=>{
@@ -62,7 +62,7 @@ function Lisiting({isLogged,value}) {
 
     }
     const bidButton=(e)=>{
-        authAxios.post("http://mhodsaifansari.pythonanywhere.com/api/bid/"+value,{'bid':Bid})
+        authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/bid/"+value,{'bid':Bid})
         .then((data)=>{console.log(data)
             getLisitingData(value)
             .then((data)=>{
@@ -96,7 +96,7 @@ function Lisiting({isLogged,value}) {
     }
     const addWatchlist=(e)=>{
         
-        authAxios.post("http://mhodsaifansari.pythonanywhere.com/api/set_watchlist/"+value)
+        authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/set_watchlist/"+value)
         .then((Response)=>{if(data.watchlist===false){
             setData(prevState=>({...prevState , watchlist:true}))
                     
@@ -109,7 +109,7 @@ function Lisiting({isLogged,value}) {
         .catch((err)=>{console.log(err);})
     }
     const closeBid=(e)=>{
-        authAxios.post("http://mhodsaifansari.pythonanywhere.com/api/close/"+value)
+        authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/close/"+value)
         .then((Response)=>{
             setData(prevState=>({...prevState,close_permit:false,status:false}))
         })

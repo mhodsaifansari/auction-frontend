@@ -15,7 +15,7 @@ function Register({isLogged,setLogged}) {
     const onSubmit=(e)=>{
         e.preventDefault();
         console.log(data)
-        axios.post("http://mhodsaifansari.pythonanywhere.com/api/register",data)
+        axios.post("https://mhodsaifansari.pythonanywhere.com/api/register",data)
         .then((response)=>{
             console.log(response.data);
             loginHook(data.username,data.password)

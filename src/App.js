@@ -74,7 +74,7 @@ function App() {
           
             <Lisiting_group type="Active" list_data={listing_data}></Lisiting_group>
         </Route>
-        <Route path="/add-new-lisiting">
+        <Route path='/add-new-lisiting'>
            
         {isLogged?<New_lisiting></New_lisiting>:<Redirect to="/"></Redirect>}
         </Route>

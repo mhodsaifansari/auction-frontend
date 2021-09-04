@@ -8,7 +8,7 @@ const  getLisitingData= (id)=>{
 {   let dataActiveLisiting;
     if(localStorage.user!==undefined)
     {
-        authAxios.get("http://mhodsaifansari.pythonanywhere.com/api/view_list/"+id)
+        authAxios.get("https://mhodsaifansari.pythonanywhere.com/api/view_list/"+id)
         .then((response)=>{
             dataActiveLisiting=response.data
             dataActiveLisiting.id=id;
@@ -17,7 +17,7 @@ const  getLisitingData= (id)=>{
             reject(err);
         })
     }else{
-    axios.get("http://mhodsaifansari.pythonanywhere.com/api/view_list/"+id)
+    axios.get("https://mhodsaifansari.pythonanywhere.com/api/view_list/"+id)
     .then((response)=>{
         dataActiveLisiting=response.data
         dataActiveLisiting.id=id;

@@ -3,7 +3,7 @@ import axios from 'axios'
 const  getActiveLisiting= new Promise((resolve,reject)=>
 {   let dataActiveLisiting;
     console.log("calling index");
-    axios.get("http://mhodsaifansari.pythonanywhere.com/api/index")
+    axios.get("https://mhodsaifansari.pythonanywhere.com/api/index")
     .then((response)=>{
         dataActiveLisiting=response.data
         resolve(dataActiveLisiting);})

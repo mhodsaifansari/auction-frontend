@@ -7,7 +7,7 @@ function New_lisiting() {
     const[err,setErr]=useState({'title':'','description':'','bid':''});
     const[success,setsuccess]=useState('');
     useEffect(()=>{
-        axios.get('http://mhodsaifansari.pythonanywhere.com/api/cateogry')
+        axios.get('https://mhodsaifansari.pythonanywhere.com/api/cateogry')
         .then((data)=>{
             console.log(data.data)
 
@@ -29,7 +29,7 @@ function New_lisiting() {
        console.log(from);
        if(from.title!=''&&from.description!=""&&from.bid!='')
        {
-        authAxios.post("http://mhodsaifansari.pythonanywhere.com/api/create_list",from)
+        authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/create_list",from)
         .then((response)=>{
             setsuccess('LisTIng has been created successfully')
         })
