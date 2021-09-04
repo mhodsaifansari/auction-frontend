@@ -1,0 +1,246 @@
+$dark1:rgb(34, 40, 49);
+$dark2:rgb(57, 62, 70);
+$dark3:rgb(0, 173, 181);
+$dark4:rgb(238, 238, 238);
+
+.App
+{
+  width: 100%;
+  overflow-x: hidden;
+}
+.body-head
+{
+  position: sticky;
+  position: -webkit-sticky;
+  top:0%;
+  opacity: 1;
+  background-color:$dark1;
+  div{padding:1.3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;  
+    }
+}
+.nav-btn
+{
+  display: none;
+}
+nav
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-bottom: 1rem;
+  border-bottom: 0.2rem solid $dark1;
+  width: 100%;
+    a
+    {
+    text-decoration: none;
+    color: $dark4;
+    }
+    li
+    {
+    list-style-type:none;
+    }
+    button
+    {
+    display: none;
+    }
+    
+}
+.card
+{
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+background-color: $dark2;
+max-width: 80vw;
+margin: 1rem;
+border-radius: 0.3rem;
+margin-left: 1rem;
+padding: 0.25rem;
+padding-bottom: 0.5rem;
+    img
+    {
+
+    
+    width: 90%;
+    height: auto;
+    align-self: center;
+    justify-self: center;
+    padding:0.4rem;
+    }
+    }
+    .card-content
+    {
+    
+    display: flex;
+    flex-direction: column;
+    
+    padding-left: 1rem;
+    }
+    .card-container 
+    {
+        
+    display: flex;
+    flex-direction: column;
+    // grid-template-columns: 7% auto 7%;
+    // grid-template-rows: 25% auto;
+        
+    margin-bottom: 1rem;
+        h6{
+    margin-bottom: 0.03rem;
+
+        }p
+        {margin-bottom: 0.03rem;
+        margin: 0rem;
+        font-weight: 400;  
+        padding: 0.2rem;
+        }
+        span{
+          padding: 0.2rem;
+        }
+        h2
+    {
+   
+    margin: 0.03rem;
+    margin-left: 1.5rem;
+    
+    }
+}
+.Card-div
+{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  margin-bottom: 1rem;
+  margin: 0.5rem;
+}
+.listing-parent{
+
+  display: flex;
+  flex-direction: column;
+  .listing{
+    margin-left: 1.4rem;
+    .title-div
+    { 
+      display: flex;
+      flex-direction: row;
+      align-items:center;
+
+      p{
+        font-size: 0.9rem;
+        margin: 1rem;
+        align-self: flex-end;
+      }
+    }
+    .content-div{
+      display: flex;
+      div{
+        margin-left: 5rem;
+      }
+      .current-bid{
+        margin-right:1rem ;
+      }
+      img{
+        width: 50%;
+        max-width: 400px;
+        min-width: 150px;
+        }
+    }
+  }
+}
+.comment-section{
+ h4,div{
+   margin-left:1rem;
+ }
+}
+.new-listing-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  h3{
+    margin-left: 1.5rem;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding: 1.3rem;
+    width: 60%;
+    max-width: 40vw;
+    div{
+      padding: 0.4rem;
+      display: flex;
+      flex-direction: column;
+    
+      input,textarea,select{
+        width: 90%;
+        max-width: 60vw;
+      }
+      textarea{
+        resize: none;
+    
+      }
+    }
+
+  }
+.submit-active-lisitng{
+  width: 20%;
+  max-width: 30vw;
+  margin-left: 0.3rem;
+}
+}
+@media screen and (max-width:690px) {
+    nav
+    {
+      padding-top: 2rem;
+      display: grid;
+      grid-template-columns: 100%;
+      
+      height: 100%;
+       width: 0%;
+       z-index: 10;
+       top: 0;
+       left: 0;
+       position: fixed;
+       overflow-x:hidden;
+       background-color: $dark1;
+       button
+   {
+     display: block;
+   } 
+    }
+    .body-head div
+    {
+      padding: 0;
+    }
+    .nav-btn
+    {
+      display: block
+    }
+    
+    .card
+    {
+      width: 100%;
+    }
+    .content-div{
+      flex-direction:column; 
+       div{
+         margin-left: 0rem !important;
+       }
+    }
+    .new-listing-form{
+      form{
+        max-width: 90% !important;
+        width: 90% !important;
+        input,textarea,select{
+          width: 90% !important;
+          max-width: 90% !important;
+        }
+      }
+    }
+}
+   

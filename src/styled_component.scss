@@ -1,0 +1,87 @@
+$dark1:rgb(34, 40, 49);
+$dark2:rgb(57, 62, 70);
+$dark3:rgb(0, 173, 181);
+$dark4:rgb(238, 238, 238);
+
+$text-color-dark:$dark4;
+
+$close:rgb(131, 56, 41);
+$light1:rgb(249, 223, 220);
+$light2:rgb(10, 129, 171);
+$light3:rgb(12, 66, 113);
+$light4:rgb(0, 0, 0);
+$text-color-light:$light4;
+
+
+
+@mixin btn($bg,$bg-hover){
+    border-radius: 0.3rem;            
+    border: solid;
+    border-width: 0.09rem;
+    padding: 0.3rem;
+    color: $text-color-dark;
+    background-color: $bg;
+    &:hover{
+      background-color:   $bg-hover;
+    }
+    &:active{
+        background:darken($bg-hover,10%);
+    }
+}
+
+
+// buttons
+.login{
+    @include btn($dark2,lighten($dark2,10%))
+}
+.submit-active-lisitng{
+    @include btn($light3,lighten($light3,5%))
+}
+.watchlist-add{
+    @include btn($light3,lighten($light3,5%))
+}
+.watchlist-remove{
+    @include btn($close,lighten($close,5%));
+}
+.bid{
+    @include btn($dark2,lighten($dark2,10%));
+    padding: 0.2rem
+}
+.post-comment{
+    @include btn($dark2,lighten($dark2,10%));
+    padding: 0.4rem;
+}
+.register{
+    @include btn($dark2,lighten($dark2,10%))
+}
+.close-bid{
+    @include btn($close,lighten($close,5%));
+    padding: 00.2rem;
+}
+//a links
+@mixin link($color,$hover) {
+    text-decoration: none;
+    color: $color;
+    &:hover{
+        color: $hover;
+        text-decoration: underline;
+    }
+    padding: 0.4rem;
+}
+
+.card-link{
+    @include link($dark4,darken($dark4,20%) );
+    padding:0.2rem;
+}
+.nav-link{
+    @include link($dark4,darken($dark4,20%) );
+}
+.group-link{
+    @include link($dark4,darken($dark4,20%) );
+}
+.login-link{
+    @include link($dark4,darken($dark4,20%) );
+}
+.register-link{
+    @include link($dark4,darken($dark4,20%) );
+}
