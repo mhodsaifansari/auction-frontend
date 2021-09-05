@@ -12,8 +12,6 @@ $light3:rgb(12, 66, 113);
 $light4:rgb(0, 0, 0);
 $text-color-light:$light4;
 
-
-
 @mixin btn($bg,$bg-hover){
     border-radius: 0.3rem;            
     border: solid;

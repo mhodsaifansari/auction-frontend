@@ -5,7 +5,8 @@ import axios from 'axios'
 import loginHook from '../Hook.js/loginHook'
 function Register({isLogged,setLogged}) {
     let history=useHistory()
-    const [data,setdata]=useState({'username':'','password':'','confirmation':'','email':''})
+    const [data,setdata]=useState({'username':'','password':'','confirmation':'','email':''});
+    const [status,setStatus]=useState('');
     const inputHandler=(e,inputName)=>{
         setdata((prevState)=>{let d={...prevState};
         d[inputName]=e.target.value;
@@ -32,12 +33,23 @@ function Register({isLogged,setLogged}) {
         
         })
         .catch((err)=>{
-            console.log(err);
+            if(err.response)
+            {
+
+            }            
+            else if(err.request)
+            {
+                console.log("Network err");
+                setStatus('Network Error please check your internet connection')
+            }
         })
 
     }
     return (
         <div>
+            <div>
+                {status}
+            </div>
             <form > 
                 <div>
                     <label for="username">Username</label>

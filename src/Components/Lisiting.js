@@ -4,7 +4,7 @@ import authAxios from '../Hook.js/authenicationHook';
 import getLisitingData from '../Hook.js/getLisitingData';
 function Lisiting({isLogged,value}) {
     console.log(value);
-    const [data,setData]=useState({id:'',title:'',image:{src:'',alt:''},bid:'',description:'',owner:'',status:false,belongs_to:null,comment:[],watchlist:false,close_permit:undefined});
+    const [data,setData]=useState({id:'',title:'loading...',image:{src:process.env.PUBLIC_URL+'/placeholder.gif',alt:''},bid:'loading...',description:'loading...',owner:'loading...',status:false,belongs_to:null,comment:[],watchlist:false,close_permit:undefined});
     //const[state_of_data,set_state_of_data]=useState(false);
     
     useEffect(() => {
@@ -147,8 +147,8 @@ function Lisiting({isLogged,value}) {
                         <button className="watchlist-remove" onClick={addWatchlist}>Remove from watchlist</button>
                     :""
             :""}
-            <p className="group">{belongs_to==null?"No Cateogry":belongs_to}</p>
-            <pre className="detail">{description}</pre>
+            <p className="group">Cateogry : {belongs_to==null?"No Cateogry":belongs_to}</p>
+            <pre className="detail">Description : {description}</pre>
             {isLogged===true?
                     close_permit!==undefined?
                         close_permit===true?
