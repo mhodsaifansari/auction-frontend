@@ -6,7 +6,7 @@ import getCaterogry from '../Hook.js/getCateogry';
 import getWatchlist from '../Hook.js/getWatchlist';
 import getWonList from '../Hook.js/getWonList';
 import getMyList from '../Hook.js/getMyList';
-
+import getUserList from '../Hook.js/getUserList';
 const mapping_data=(dataActiveList,bid_list,isLogged)=>{
   console.log(dataActiveList);
   let jsxList=dataActiveList.map((l,index)=>{
@@ -58,6 +58,12 @@ function Lisiting_group(props) {
                   .then((dataActiveLisiting)=>{set_jsx({list:mapping_data(dataActiveLisiting.listing,dataActiveLisiting.bid_list,props.isLogged),title:"Cateogry: "+ props.group_of})})
                   .catch((err)=>{console.log(err);})
                 break;
+      case "User":getUserList(props.username)
+                  .then((dataActiveLisiting)=>{set_jsx({list:mapping_data(dataActiveLisiting.watchlist,dataActiveLisiting.bid_list,props.isLogged),title:"Username : "+dataActiveLisiting.username})})
+                  .catch((err)=>{
+                    console.log(err);
+                  })
+                  break;
       default:;
     }
   

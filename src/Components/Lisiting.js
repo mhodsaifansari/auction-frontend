@@ -131,7 +131,7 @@ function Lisiting({isLogged,value}) {
             <div className="listing">
                 <div className="title-div">
                     <h2>{title}</h2>
-                    <p className="belong_to">by {owner}</p>
+                    <p className="belong_to">by <a href={"../user/"+owner} className="group-link">{owner}</a></p>
                 </div>
             <div className="content-div">    
             <img src={image.src} alt={image.alt} ></img>

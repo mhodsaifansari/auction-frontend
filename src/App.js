@@ -19,6 +19,7 @@ import Cateogry from './Components/Cateogry';
 import Nav_Component from './Components/Nav_Component';
 import Register from './Components/Register';
 import authAxios from './Hook.js/authenicationHook';
+import User from './Components/User';
 
 function checklogin()
 {
@@ -121,6 +122,14 @@ function App() {
         
         
         }></Route>
+        <Route path="/user" component={
+          (route)=>
+          {
+          console.log(route.match.url)
+          const username=route.location['pathname'].replace(route.match.url+"/","")
+          return <Route path={route.match.url+"/"+username}><User username={username}></User></Route>
+          }
+          }></Route>
         </Switch>
       </div>
     </div>
