@@ -19,7 +19,7 @@ function Login({isLogged,setLogged}) {
         console.log(data);
         localStorage.setItem('user',JSON.stringify(data));
         setLogged(true);
-        history.push("/");
+        history.push("/")
 
     })
     .catch((err)=>{console.log(err);

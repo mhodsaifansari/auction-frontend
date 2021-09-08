@@ -36,8 +36,10 @@ function Lisiting({isLogged,value}) {
         setBid(e.target.value);
     }
     const commentButton=(e)=>{
+        e.target.innerText="Loading..."
         authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/comment/"+value,{'comment_text':Comment})
         .then((data)=>{console.log(data)
+            e.target.innerText="post"
             getLisitingData(value)
             .then((data)=>{
                 console.log(data);
@@ -61,8 +63,10 @@ function Lisiting({isLogged,value}) {
 
     }
     const bidButton=(e)=>{
+        e.target.innerText="Loading.."
         authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/bid/"+value,{'bid':Bid})
         .then((data)=>{console.log(data)
+            e.target.innerText="Bid";
             getLisitingData(value)
             .then((data)=>{
                 console.log(data);
@@ -94,7 +98,7 @@ function Lisiting({isLogged,value}) {
         setComment(e.target.value);
     }
     const addWatchlist=(e)=>{
-        
+        e.target.innerText="Loading..."
         authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/set_watchlist/"+value)
         .then((Response)=>{if(data.watchlist===false){
             setData(prevState=>({...prevState , watchlist:true}))
@@ -108,6 +112,7 @@ function Lisiting({isLogged,value}) {
         .catch((err)=>{console.log(err);})
     }
     const closeBid=(e)=>{
+        e.target.innerText="Loading..."
         authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/close/"+value)
         .then((Response)=>{
             setData(prevState=>({...prevState,close_permit:false,status:false}))
@@ -140,7 +145,7 @@ function Lisiting({isLogged,value}) {
                         <button className="watchlist-remove" onClick={addWatchlist}>Remove from watchlist</button>
                     :""
             :""}
-            <p className="group">Cateogry : {belongs_to==null?"No Cateogry":belongs_to.text}</p>
+            <p className="group">Cateogry : {belongs_to==null?"No Cateogry":<a href={'../cateogry/'+belongs_to.text} className="group-link">{belongs_to.text}</a>}</p>
             <pre className="detail">Description : {description}</pre>
             {isLogged===true?
                     close_permit!==undefined?

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import authAxios from '../Hook.js/authenicationHook';
 function New_lisiting() {
     const[category,setcategory]=useState([]);    
-    const[from,setform]=useState({'title':'','description':'','bid':'','image':'','group':''});
+    const[from,setform]=useState({'title':'','description':'','bid':'','image':'','group':'None'});
     const[err,setErr]=useState({'title':'','description':'','bid':''});
     const[success,setsuccess]=useState('');
     useEffect(()=>{
@@ -28,7 +28,7 @@ function New_lisiting() {
         
        console.log(from);
        if(from.title!=''&&from.description!=""&&from.bid!='')
-       {
+       {setsuccess("Loading......")
         authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/create_list",from)
         .then((response)=>{
             setsuccess('LisTIng has been created successfully')
@@ -37,6 +37,7 @@ function New_lisiting() {
             if(err.request.status==400)
             {
                 console.log("Invalid input")
+                setsuccess('Error with input try again');
             }
         })
        }

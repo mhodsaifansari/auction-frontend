@@ -1,12 +1,12 @@
 import'./App.scss';
 import './styled_component.scss';
-import Nav from './Components/Nav';
+import Nav from './Components/Nav'
 //import axios from 'axios'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,useHistory, Link
 } from "react-router-dom";
 import Lisiting from './Components/Lisiting';
 import New_lisiting from './Components/New_lisiting';
@@ -18,6 +18,7 @@ import Card from './Components/Card';
 import Cateogry from './Components/Cateogry';
 import Nav_Component from './Components/Nav_Component';
 import Register from './Components/Register';
+import authAxios from './Hook.js/authenicationHook';
 
 function checklogin()
 {
@@ -45,7 +46,8 @@ function App() {
   //eslint-disable-next-line
  const [listing_data,set_listing_data]=useState('');
  const [isLogged,setLogged]=useState(checklogin)
-  const lisiting=({location,match})=>{
+ const history = useHistory();
+ const lisiting=({location,match})=>{
     const id=location['pathname'].replace(match.url+'/',"");
     return (<Route path={match.url+'/'+id} ><Lisiting isLogged={isLogged} value={id}></Lisiting></Route>)
   }
@@ -53,8 +55,10 @@ function App() {
                         
     return isLogged?(jsx):(<Redirect to="/"/>)
 }
+
   useEffect(()=>{
     setLogged(checklogin)
+   
   },[])
  
  console.log(isLogged);
