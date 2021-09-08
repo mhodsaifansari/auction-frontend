@@ -4,12 +4,10 @@ import authAxios from '../Hook.js/authenicationHook';
 import getLisitingData from '../Hook.js/getLisitingData';
 function Lisiting({isLogged,value}) {
     console.log(value);
-    const [data,setData]=useState({id:'',title:'',image:{src:'',alt:''},bid:'',description:'',owner:'',status:false,belongs_to:null,comment:[],watchlist:false,close_permit:undefined});
-    //const[state_of_data,set_state_of_data]=useState(false);
-    
+    const [data,setData]=useState({id:'',title:'loading...',image:{src:process.env.PUBLIC_URL+'/placeholder.gif',alt:''},bid:'loading...',description:'loading...',owner:'loading...',status:false,belongs_to:null,comment:'',watchlist:false,close_permit:undefined});
+   
+   
     useEffect(() => {
-        
-    
         getLisitingData(value)
         .then((data)=>{
             
@@ -29,7 +27,8 @@ function Lisiting({isLogged,value}) {
             
         
         })
-        .catch((err)=>{console.log(err);})
+        .catch((err)=>{console.log(err);});
+
     },[])
     const [Comment,setComment]=useState('');
     const [Bid,setBid]=useState();
@@ -118,16 +117,10 @@ function Lisiting({isLogged,value}) {
         })
 
     }
+    console.log(data);
     const {title,image,bid,description,owner,comment,belongs_to,watchlist,close_permit,status}=data;
-    
-    const comment_jsx=comment.map((c)=>{return(<>
-        <div className="comment-div">
-            <h5>{c.comment_by}</h5>
-            <pre>{c.text}</pre>
-            
-            
-        </div></>)})
-        console.log(watchlist)
+
+       
     return (
         <div className="listing-parent">
             <div className="listing">
@@ -147,8 +140,8 @@ function Lisiting({isLogged,value}) {
                         <button className="watchlist-remove" onClick={addWatchlist}>Remove from watchlist</button>
                     :""
             :""}
-            <p className="group">{belongs_to==null?"No Cateogry":belongs_to}</p>
-            <pre className="detail">{description}</pre>
+            <p className="group">Cateogry : {belongs_to==null?"No Cateogry":belongs_to.text}</p>
+            <pre className="detail">Description : {description}</pre>
             {isLogged===true?
                     close_permit!==undefined?
                         close_permit===true?
@@ -176,7 +169,14 @@ function Lisiting({isLogged,value}) {
                 <textarea className="comment-textarea"value={Comment} onChange={commentHandler}></textarea>
                 <button onClick={commentButton} className="comment-btn post-comment">post</button>
             </div>:""}
-                {comment_jsx===[]?<h3>No comments</h3>:comment_jsx}
+                {comment===''?<h4>Loading...</h4>:comment.length===0?<h4>No comment</h4>:comment.map((c)=>{
+        console.log(c);
+        return(<>
+       
+        <div className="comment-div">
+            <h5>{c.comment_by.username}</h5>
+            <pre>{c.text}</pre>            
+        </div></>)})}
             </div>
         </div>
     )

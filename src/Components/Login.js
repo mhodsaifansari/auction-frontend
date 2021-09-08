@@ -7,6 +7,7 @@ import logoutHook from '../Hook.js/logoutHook';
 function Login({isLogged,setLogged}) {
     let history=useHistory();
     const [form_data,set_form_data]=useState({'username':'','password':''})
+    const [status,setStatus]=useState('');
     const usernameHandler=(e)=>{set_form_data((prevState)=>{return {'username':e.target.value,'password':prevState.password}})};
     const passwordHandler=(e)=>{set_form_data((prevState)=>{return {'username':prevState.username,'password':e.target.value}})};
     const submitHandler=(e)=>
@@ -21,10 +22,26 @@ function Login({isLogged,setLogged}) {
         history.push("/");
 
     })
-    .catch((err)=>{console.log(err);})                        
+    .catch((err)=>{console.log(err);
+        
+        
+        
+        
+        if(err.response.status==500)
+        {
+            setStatus('Server has some issue please try again later')
+        }
+        if(err.response.status==401)
+        {
+            setStatus("Invalid username/password");
+        }
+    
+    
+    })                        
     }
     return (
         <div>
+            <div>{status}</div>
             {isLogged===true?<button onClick={()=>{logoutHook(setLogged)}}>want to logout</button>:(<form >
                 
                 <div>
