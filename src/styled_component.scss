@@ -66,6 +66,12 @@ $text-color-light:$light4;
     @include btn($dark2,lighten($dark2,10%));
     margin-right: 0.3rem;
 }
+.next-page{
+    @include btn($dark2,lighten($dark2,10%));
+}
+.prev-page{
+    @include btn($dark2,lighten($dark2,10%));
+}
 //a links
 @mixin link($color,$hover) {
     text-decoration: none;

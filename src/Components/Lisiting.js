@@ -2,6 +2,7 @@ import React from 'react'
 import {useState,useEffect} from 'react'
 import authAxios from '../Hook.js/authenicationHook';
 import getLisitingData from '../Hook.js/getLisitingData';
+import baseurl from '../Hook.js/url';
 function Lisiting({isLogged,value}) {
     console.log(value);
     const [data,setData]=useState({id:'',title:'loading...',image:{src:process.env.PUBLIC_URL+'/placeholder.gif',alt:''},bid:'loading...',description:'loading...',owner:'loading...',status:false,belongs_to:null,comment:'',watchlist:false,close_permit:undefined});
@@ -37,7 +38,7 @@ function Lisiting({isLogged,value}) {
     }
     const commentButton=(e)=>{
         e.target.innerText="Loading..."
-        authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/comment/"+value,{'comment_text':Comment})
+        authAxios.post(baseurl+"/api/comment/"+value,{'comment_text':Comment})
         .then((data)=>{console.log(data)
             e.target.innerText="post"
             getLisitingData(value)
@@ -64,7 +65,7 @@ function Lisiting({isLogged,value}) {
     }
     const bidButton=(e)=>{
         e.target.innerText="Loading.."
-        authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/bid/"+value,{'bid':Bid})
+        authAxios.post(baseurl+"/api/bid/"+value,{'bid':Bid})
         .then((data)=>{console.log(data)
             e.target.innerText="Bid";
             getLisitingData(value)
@@ -99,7 +100,7 @@ function Lisiting({isLogged,value}) {
     }
     const addWatchlist=(e)=>{
         e.target.innerText="Loading..."
-        authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/set_watchlist/"+value)
+        authAxios.post(baseurl+"/api/set_watchlist/"+value)
         .then((Response)=>{if(data.watchlist===false){
             setData(prevState=>({...prevState , watchlist:true}))
                     
@@ -113,7 +114,7 @@ function Lisiting({isLogged,value}) {
     }
     const closeBid=(e)=>{
         e.target.innerText="Loading..."
-        authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/close/"+value)
+        authAxios.post(baseurl+"/api/close/"+value)
         .then((Response)=>{
             setData(prevState=>({...prevState,close_permit:false,status:false}))
         })

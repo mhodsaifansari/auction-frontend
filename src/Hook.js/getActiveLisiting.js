@@ -1,9 +1,9 @@
 import axios from 'axios'
-
-const  getActiveLisiting= new Promise((resolve,reject)=>
+import baseurl from "./url";
+const  getActiveLisiting= (page)=>new Promise((resolve,reject)=>
 {   let dataActiveLisiting;
     console.log("calling index");
-    axios.get("https://mhodsaifansari.pythonanywhere.com/api/index")
+    axios.get(baseurl+"/api/index?page="+page)
     .then((response)=>{
         dataActiveLisiting=response.data
         resolve(dataActiveLisiting);})

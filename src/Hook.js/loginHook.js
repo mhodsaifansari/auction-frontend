@@ -1,9 +1,10 @@
 import axios  from "axios";
+import baseurl from "./url";
 
 const loginHook=(username,password)=>{
 
     return new Promise( (resolve,reject)=>{
-        axios.post("https://mhodsaifansari.pythonanywhere.com/api/login",{
+        axios.post(baseurl+"/api/login",{
         'username':username,
         'password':password})
     .then((response)=>{resolve(response.data)})

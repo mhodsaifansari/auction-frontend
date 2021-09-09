@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import authAxios from '../Hook.js/authenicationHook';
+import baseurl from '../Hook.js/url';
 function New_lisiting() {
     const[category,setcategory]=useState([]);    
     const[from,setform]=useState({'title':'','description':'','bid':'','image':'','group':'None'});
     const[err,setErr]=useState({'title':'','description':'','bid':''});
     const[success,setsuccess]=useState('');
     useEffect(()=>{
-        axios.get('https://mhodsaifansari.pythonanywhere.com/api/cateogry')
+        axios.get(baseurl+'/api/cateogry')
         .then((data)=>{
             console.log(data.data)
 
@@ -29,7 +30,7 @@ function New_lisiting() {
        console.log(from);
        if(from.title!=''&&from.description!=""&&from.bid!='')
        {setsuccess("Loading......")
-        authAxios.post("https://mhodsaifansari.pythonanywhere.com/api/create_list",from)
+        authAxios.post(baseurl+"/api/create_list",from)
         .then((response)=>{
             setsuccess('LisTIng has been created successfully')
         })

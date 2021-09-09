@@ -1,8 +1,8 @@
 import axios from "axios"
-
-const getCaterogry =(group_of)=>{
+import baseurl from "./url";
+const getCaterogry =(group_of,page)=>{
  return   new Promise ((resolve,reject)=>{
-        axios.get("https://mhodsaifansari.pythonanywhere.com/api/cateogry/"+group_of)
+        axios.get(baseurl+"/api/cateogry/"+group_of+"?page="+page)
         .then((response)=>{
             console.log(response.data);
             resolve(response.data);

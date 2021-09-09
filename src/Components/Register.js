@@ -2,7 +2,8 @@ import React from 'react'
 import {useState} from 'react'
 import { useHistory } from 'react-router'
 import axios from 'axios'
-import loginHook from '../Hook.js/loginHook'
+import loginHook from '../Hook.js/loginHook';
+import baseurl from '../Hook.js/url';
 function Register({isLogged,setLogged}) {
     let history=useHistory()
     const [data,setdata]=useState({'username':'','password':'','confirmation':'','email':''});
@@ -16,7 +17,7 @@ function Register({isLogged,setLogged}) {
     const onSubmit=(e)=>{
         e.preventDefault();
         console.log(data)
-        axios.post("https://mhodsaifansari.pythonanywhere.com/api/register",data)
+        axios.post(baseurl+"/api/register",data)
         .then((response)=>{
             console.log(response.data);
             loginHook(data.username,data.password)

@@ -1,14 +1,14 @@
 
 import axios from 'axios'
 import authAxios from './authenicationHook';
-
+import baseurl from "./url";
 const  getLisitingData= (id)=>{
     
     return new Promise((resolve,reject)=>
 {   let dataActiveLisiting;
     if(localStorage.user!==undefined)
     {
-        authAxios.get("https://mhodsaifansari.pythonanywhere.com/api/view_list/"+id)
+        authAxios.get(baseurl+"/api/view_list/"+id)
         .then((response)=>{
             dataActiveLisiting=response.data
             dataActiveLisiting.id=id;
@@ -17,7 +17,7 @@ const  getLisitingData= (id)=>{
             reject(err);
         })
     }else{
-    axios.get("https://mhodsaifansari.pythonanywhere.com/api/view_list/"+id)
+    axios.get(baseurl+"/api/view_list/"+id)
     .then((response)=>{
         dataActiveLisiting=response.data
         dataActiveLisiting.id=id;

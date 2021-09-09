@@ -1,9 +1,10 @@
 
 import authAxios from "./authenicationHook"
-const getMyList=()=>{
+import baseurl from "./url";
+const getMyList=(page)=>{
 
     return new Promise((resolve,reject)=>{
-        authAxios.get("https://mhodsaifansari.pythonanywhere.com/api/mylist")
+        authAxios.get(baseurl+"/api/mylist?page="+page)
         .then((data)=>{console.log(data.data);resolve(data.data)})
         .catch((err)=>{reject(err)})
     })        
