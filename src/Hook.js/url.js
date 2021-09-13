@@ -1,3 +1,3 @@
-const baseurl="http://127.0.0.1:8000"
+const baseurl="https://mhodsaifansari.pythonanywhere.com"
 
 export default baseurl
