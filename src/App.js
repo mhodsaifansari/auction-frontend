@@ -1,7 +1,7 @@
 import'./App.scss';
 import './styled_component.scss';
 import Nav from './Components/Nav'
-//import axios from 'axios'
+
 import {
   BrowserRouter as Router,
   Switch,

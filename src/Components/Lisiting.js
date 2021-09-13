@@ -5,7 +5,7 @@ import getLisitingData from '../Hook.js/getLisitingData';
 import baseurl from '../Hook.js/url';
 function Lisiting({isLogged,value}) {
     console.log(value);
-    const [data,setData]=useState({id:'',title:'loading...',image:{src:process.env.PUBLIC_URL+'/placeholder.gif',alt:''},bid:'loading...',description:'loading...',owner:'loading...',status:false,belongs_to:null,comment:'',watchlist:false,close_permit:undefined});
+    const [data,setData]=useState({id:'',title:'loading...',image:{src:process.env.PUBLIC_URL+'/placeholder.gif',alt:''},bid:'loading...',description:'loading...',owner:'loading...',status:false,belongs_to:null,comment:'',watchlist:false,close_permit:undefined,date:'loading...'});
    
    
     useEffect(() => {
@@ -23,7 +23,8 @@ function Lisiting({isLogged,value}) {
                     status:data.listing.status,
                     belongs_to:data.listing.belongs_to,
                     watchlist:data.is_in_watchlist,
-                    close_permit:data.close_permit
+                    close_permit:data.close_permit,
+                    date:new Date(data.listing.created_on).toLocaleDateString()
                 });
             
         
@@ -147,6 +148,7 @@ function Lisiting({isLogged,value}) {
                     :""
             :""}
             <p className="group">Cateogry : {belongs_to==null?"No Cateogry":<a href={'../cateogry/'+belongs_to.text} className="group-link">{belongs_to.text}</a>}</p>
+            <p>created On: {data.date}</p>
             <pre className="detail">Description : {description}</pre>
             {isLogged===true?
                     close_permit!==undefined?

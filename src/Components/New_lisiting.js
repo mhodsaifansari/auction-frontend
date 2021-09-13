@@ -35,7 +35,7 @@ function New_lisiting() {
             setsuccess('LisTIng has been created successfully')
         })
         .catch((err)=>{
-            if(err.request.status==400)
+            if(err.request.status===400)
             {
                 console.log("Invalid input")
                 setsuccess('Error with input try again');

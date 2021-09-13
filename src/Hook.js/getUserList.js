@@ -1,4 +1,3 @@
-import axios from "axios"
 import authAxios from "./authenicationHook"
 import baseurl from "./url";
 const getUserList=(username,page)=>{

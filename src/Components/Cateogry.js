@@ -6,11 +6,21 @@ function Cateogry({match}) {
     useEffect(
         ()=>{
             axios.get(baseurl+"/api/cateogry")
-            .then((response)=>{console.log(response.data);
+            .then((response)=>{
+
                 let jsx_list=response.data.map((d)=>{return (<li><a href={match.url+"/"+d.text} className="group-link">{d.text}</a></li>)})
                 setList(jsx_list);
             })
-            .catch((err)=>{console.log(err);})
+            .catch((err)=>{
+                if(err.request){
+                    setList("Network issue please check your network and try again later");
+                }  
+                else if(err.response){
+                    setList(err.data);
+                }
+                console.log(err);
+            
+            })
         },[])
     return (
         <div>
