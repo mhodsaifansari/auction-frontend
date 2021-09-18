@@ -14,7 +14,10 @@ function Lisiting({isLogged,value}) {
             
             
             console.log(data);
-            setData({id:value,title:data.listing.title,
+            setData((prev)=>{
+                
+                if(isLogged!=true){
+                return{id:value,title:data.listing.title,
                     image:{src:data.listing.image,alt:data.listing.title},
                     bid:data.bid_data,
                     description:data.listing.description,
@@ -25,7 +28,27 @@ function Lisiting({isLogged,value}) {
                     watchlist:data.is_in_watchlist,
                     close_permit:data.close_permit,
                     date:new Date(data.listing.created_on).toLocaleDateString()
-                });
+                }}
+                else
+                {
+                    return{id:value,title:data.listing.title,
+                        image:{src:data.listing.image,alt:data.listing.title},
+                        bid:data.bid_data,
+                        description:data.listing.description,
+                        owner:data.listing.owner.username,
+                        comment:data.comments,
+                        status:data.listing.status,
+                        belongs_to:data.listing.belongs_to,
+                        watchlist:data.is_in_watchlist,
+                        close_permit:data.close_permit,
+                        date:new Date(data.listing.created_on).toLocaleDateString(),
+                        balance:data.balance,
+                        effective_balance:data.effective_balance
+                    }
+                }
+            }
+                
+                );
             
         
         })
@@ -45,17 +68,50 @@ function Lisiting({isLogged,value}) {
             getLisitingData(value)
             .then((data)=>{
                 console.log(data);
-                setData({id:value,title:data.listing.title,
+                // setData({id:value,title:data.listing.title,
+                //         image:{src:data.listing.image,alt:data.listing.title},
+                //         bid:data.bid_data,
+                //         description:data.listing.description,
+                //         owner:data.listing.owner.username,
+                //         status:data.listing.status,
+                //         comment:data.comments,
+                //         belongs_to:data.listing.belongs_to,
+                //         watchlist:data.is_in_watchlist,
+                //         close_permit:data.close_permit
+                //         });
+                setData((prev)=>{
+                
+                    if(isLogged==false){
+                    return{id:value,title:data.listing.title,
                         image:{src:data.listing.image,alt:data.listing.title},
                         bid:data.bid_data,
                         description:data.listing.description,
                         owner:data.listing.owner.username,
-                        status:data.listing.status,
                         comment:data.comments,
+                        status:data.listing.status,
                         belongs_to:data.listing.belongs_to,
                         watchlist:data.is_in_watchlist,
-                        close_permit:data.close_permit
-                        });
+                        close_permit:data.close_permit,
+                        date:new Date(data.listing.created_on).toLocaleDateString()
+                    }}
+                    else
+                    {
+                        return{id:value,title:data.listing.title,
+                            image:{src:data.listing.image,alt:data.listing.title},
+                            bid:data.bid_data,
+                            description:data.listing.description,
+                            owner:data.listing.owner.username,
+                            comment:data.comments,
+                            status:data.listing.status,
+                            belongs_to:data.listing.belongs_to,
+                            watchlist:data.is_in_watchlist,
+                            close_permit:data.close_permit,
+                            date:new Date(data.listing.created_on).toLocaleDateString(),
+                            balance:data.balance,
+                            effective_balance:data.effective_balance
+                        }
+                    }
+                });
             
             })
             .catch((err)=>{console.log(err);})
@@ -72,17 +128,50 @@ function Lisiting({isLogged,value}) {
             getLisitingData(value)
             .then((data)=>{
                 console.log(data);
-                setData({id:value,title:data.listing.title,
+                // setData({id:value,title:data.listing.title,
+                //         image:{src:data.listing.image,alt:data.listing.title},
+                //         bid:data.bid_data,
+                //         description:data.listing.description,
+                //         owner:data.listing.owner.username,
+                //         status:data.listing.status,
+                //         comment:data.comments,
+                //         belongs_to:data.listing.belongs_to,
+                //         watchlist:data.is_in_watchlist,
+                //         close_permit:data.close_permit
+                //         });
+                setData((prev)=>{
+                
+                    if(isLogged==false){
+                    return{id:value,title:data.listing.title,
                         image:{src:data.listing.image,alt:data.listing.title},
                         bid:data.bid_data,
                         description:data.listing.description,
                         owner:data.listing.owner.username,
-                        status:data.listing.status,
                         comment:data.comments,
+                        status:data.listing.status,
                         belongs_to:data.listing.belongs_to,
                         watchlist:data.is_in_watchlist,
-                        close_permit:data.close_permit
-                        });
+                        close_permit:data.close_permit,
+                        date:new Date(data.listing.created_on).toLocaleDateString()
+                    }}
+                    else
+                    {
+                        return{id:value,title:data.listing.title,
+                            image:{src:data.listing.image,alt:data.listing.title},
+                            bid:data.bid_data,
+                            description:data.listing.description,
+                            owner:data.listing.owner.username,
+                            comment:data.comments,
+                            status:data.listing.status,
+                            belongs_to:data.listing.belongs_to,
+                            watchlist:data.is_in_watchlist,
+                            close_permit:data.close_permit,
+                            date:new Date(data.listing.created_on).toLocaleDateString(),
+                            balance:data.balance,
+                            effective_balance:data.effective_balance
+                        }
+                    }
+                });
             
             })
             .catch((err)=>{
@@ -94,7 +183,12 @@ function Lisiting({isLogged,value}) {
             if(err.request.status=='403')
             {
                 console.log("Bid is closed")
-            }})    
+            }
+            if(err.request.status=='406')
+            {
+                e.target.innerText='Not Enough Balance'
+            }
+        })    
     }
     const commentHandler=(e)=>{
         setComment(e.target.value);
@@ -138,7 +232,7 @@ function Lisiting({isLogged,value}) {
             <div className="content-div">    
             <img src={image.src} alt={image.alt} ></img>
             <div>
-            
+            {isLogged==true?<div><span>Balance {data.balance}</span> <span>Effective Balance {data.effective_balance}</span></div>:""}
             <span className="current-bid">Current Bid : ${bid}</span>
             {isLogged===true?
                     watchlist!==undefined?

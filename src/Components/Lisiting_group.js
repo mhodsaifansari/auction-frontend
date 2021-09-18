@@ -8,6 +8,7 @@ import getWonList from '../Hook.js/getWonList';
 import getMyList from '../Hook.js/getMyList';
 import getUserList from '../Hook.js/getUserList';
 import { useHistory } from 'react-router';
+import logoutHook from '../Hook.js/logoutHook';
 const mapping_data=(dataActiveList,bid_list,isLogged)=>{
   console.log(dataActiveList);
 
@@ -30,10 +31,16 @@ function Lisiting_group(props) {
                     .then((dataActiveList)=>{set_jsx({list:mapping_data(dataActiveList.listing,dataActiveList.bid_list,props.isLogged),title:"Active Listing",max_page:dataActiveList.max_page})})
                     .catch((err)=>{
                       if(err.response){
-                        set_jsx({list:err.response.data,title:"Active Listing",max_page:1})
+
+                        if(err.response.status==401)
+                        {
+                         logoutHook(props.setLogged);
+                         
+                        }
+              
                       }
                       else if(err.request){
-                        set_jsx({list:'Network issue please check your network and try again',title:"Active Listing",max_page:1})
+                        set_jsx({list:<div className="nothing-div">Network issue please check your network and try again</div>,title:"Active Listing",max_page:1})
                       }
                     });
                     
@@ -46,7 +53,7 @@ function Lisiting_group(props) {
                       set_jsx({list:err.response.data,title:"My Watchlist",max_page:1})
                     }
                     else if(err.request){
-                      set_jsx({list:'Network issue please check your network and try again',title:"My Watchlist",max_page:1})
+                      set_jsx({list:<div className="nothing-div">Network issue please check your network and try again</div>,title:"My Watchlist",max_page:1})
                     }
                     
                   })
@@ -60,7 +67,7 @@ function Lisiting_group(props) {
                       set_jsx({list:err.response.data,title:"Listing Won",max_page:1})
                     }
                     else if(err.request){
-                      set_jsx({list:'Network issue please check your network and try again',title:"Listing Won",max_page:1})
+                      set_jsx({list:<div className="nothing-div">Network issue please check your network and try again</div>,title:"Listing Won",max_page:1})
                     }
                   })
                 break;
@@ -72,7 +79,7 @@ function Lisiting_group(props) {
                       set_jsx({list:err.response.data,title:"My List",max_page:1})
                     }
                     else if(err.request){
-                      set_jsx({list:'Network issue please check your network and try again',title:"My List",max_page:1})
+                      set_jsx({list:<div className="nothing-div">Network issue please check your network and try again</div>,title:"My List",max_page:1})
                     }
                   })
                 break;
@@ -83,27 +90,31 @@ function Lisiting_group(props) {
                   .catch((err)=>{
                     if(err.response){
                       if(err.response.status===404){
-                        set_jsx({list:"No such Cateogry Exist",title:"Cateogry: "+ props.group_of,max_page:1})
+                        set_jsx({list:<div className="nothing-div">No such Cateogry Exist</div>,title:"Cateogry: "+ props.group_of,max_page:1})
                     }
                       
                     }
                     else if(err.request){
-                      set_jsx({list:'Network issue please check your network and try again',title:"Cateogry: "+ props.group_of,max_page:1})
+                      set_jsx({list:<div className="nothing-div">Network issue please check your network and try again</div>,title:"Cateogry: "+ props.group_of,max_page:1})
                     }
                   })
                 break;
       case "User":getUserList(props.username,page)
-                  .then((dataActiveLisiting)=>{set_jsx({list:mapping_data(dataActiveLisiting.watchlist,dataActiveLisiting.bid_list,props.isLogged),title:"Username : "+dataActiveLisiting.username,max_page:dataActiveLisiting.max_page})})
+                  .then((dataActiveLisiting)=>{
+                    console.log(dataActiveLisiting)
+                    set_jsx({list:mapping_data(dataActiveLisiting.watchlist,dataActiveLisiting.bid_list,props.isLogged),title:"Username : "+dataActiveLisiting.username,max_page:dataActiveLisiting.max_page,'balance':dataActiveLisiting.balance,'effective_balance':dataActiveLisiting.effective_balance,
+                    'user_details':dataActiveLisiting.user_details
+                  })})
                   .catch((err)=>{
                     if(err.response){
                       console.log(err.response.status)
                       if(err.response.status===404){
-                        set_jsx({list:"No such User",title:"Username : "+ props.username,max_page:1})
+                        set_jsx({list:<div className="nothing-div">No such User</div>,title:"Username : "+ props.username,max_page:1})
                     }
                       
                     }
                     else if(err.request){
-                      set_jsx({list:'Network issue please check your network and try again',title:"Username : "+ props.username+ props.username,max_page:1})
+                      set_jsx({list:<div className="nothing-div">Network issue please check your network and try again</div>,title:"Username : "+ props.username+ props.username,max_page:1})
                     }
                   })
                   break;
@@ -129,6 +140,11 @@ function Lisiting_group(props) {
   return (
         <div className="card-container" >
           <div className="title-div"><h2>{jsx.title}</h2>
+            {props.type=="User"?
+              <>
+            <span>Balance:{jsx.balance} Effective Balance :{jsx.effective_balance}</span>
+            </>:""
+            }
             {jsx.max_page===1?"":<div className="page-div">{page==1?"":<button className="prev-page"onClick={prevpage}>prev</button>}
             <span>{page}/{jsx.max_page}</span>
             {page==jsx.max_page?"":<button onClick={nextpage} className="next-page">next</button>}</div>}
@@ -137,8 +153,16 @@ function Lisiting_group(props) {
           
           
           </div>
+          {props.type=="User"&&jsx.user_details!=undefined?<div>
+            <p>Total Lisitng: {jsx.user_details.Total_listing}</p>
+            <p>Active Listing {jsx.user_details.active_listing}</p>
+            <p>Lisiting Won: {jsx.user_details.won}</p>
+            <p>Bidded Listing: {jsx.user_details.bidded}</p>
+      
+          </div>:""}
          <div className="Card-div">
-          {jsx.list!==''?jsx.list.length===0?'No List is present':jsx.list:"Loading...."}
+          {jsx.list!==''?jsx.list.length===0?
+                        (<div className="nothing-div">No List is present</div>):jsx.list:<div className="nothing-div">Loading....</div>}
           
           </div>
         </div>

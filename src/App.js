@@ -24,7 +24,9 @@ import User from './Components/User';
 function checklogin()
 {
   try{
-    if(JSON.parse(localStorage.getItem('user')).loggedIn===true)
+    let checkLogged=JSON.parse(localStorage.getItem('user'))
+    
+    if(checkLogged.loggedIn===true)
     {
     
     return true;
@@ -38,8 +40,8 @@ function checklogin()
   }
   catch(err)
   {
-    console.log(err);
-    return false
+    
+    return false;
   }
 }
 
@@ -77,7 +79,7 @@ function App() {
           
           <Route exact path="/"> 
           
-            <Lisiting_group type="Active" list_data={listing_data}></Lisiting_group>
+            <Lisiting_group type="Active" list_data={listing_data} setLogged={setLogged}></Lisiting_group>
         </Route>
         <Route path='/add-new-lisiting'>
            
