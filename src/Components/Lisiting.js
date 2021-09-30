@@ -3,6 +3,7 @@ import {useState,useEffect} from 'react'
 import authAxios from '../Hook.js/authenicationHook';
 import getLisitingData from '../Hook.js/getLisitingData';
 import baseurl from '../Hook.js/url';
+import BidData from './BidData';
 function Lisiting({isLogged,value}) {
     console.log(value);
     const [data,setData]=useState({id:'',title:'loading...',image:{src:process.env.PUBLIC_URL+'/placeholder.gif',alt:''},bid:'loading...',description:'loading...',owner:'loading...',status:false,belongs_to:null,comment:'',watchlist:false,close_permit:undefined,date:'loading...'});
@@ -139,39 +140,42 @@ function Lisiting({isLogged,value}) {
                 //         watchlist:data.is_in_watchlist,
                 //         close_permit:data.close_permit
                 //         });
-                setData((prev)=>{
+
+
+
+                // setData((prev)=>{
                 
-                    if(isLogged==false){
-                    return{id:value,title:data.listing.title,
-                        image:{src:data.listing.image,alt:data.listing.title},
-                        bid:data.bid_data,
-                        description:data.listing.description,
-                        owner:data.listing.owner.username,
-                        comment:data.comments,
-                        status:data.listing.status,
-                        belongs_to:data.listing.belongs_to,
-                        watchlist:data.is_in_watchlist,
-                        close_permit:data.close_permit,
-                        date:new Date(data.listing.created_on).toLocaleDateString()
-                    }}
-                    else
-                    {
-                        return{id:value,title:data.listing.title,
-                            image:{src:data.listing.image,alt:data.listing.title},
-                            bid:data.bid_data,
-                            description:data.listing.description,
-                            owner:data.listing.owner.username,
-                            comment:data.comments,
-                            status:data.listing.status,
-                            belongs_to:data.listing.belongs_to,
-                            watchlist:data.is_in_watchlist,
-                            close_permit:data.close_permit,
-                            date:new Date(data.listing.created_on).toLocaleDateString(),
-                            balance:data.balance,
-                            effective_balance:data.effective_balance
-                        }
-                    }
-                });
+                //     if(isLogged==false){
+                //     return{id:value,title:data.listing.title,
+                //         image:{src:data.listing.image,alt:data.listing.title},
+                //         bid:data.bid_data,
+                //         description:data.listing.description,
+                //         owner:data.listing.owner.username,
+                //         comment:data.comments,
+                //         status:data.listing.status,
+                //         belongs_to:data.listing.belongs_to,
+                //         watchlist:data.is_in_watchlist,
+                //         close_permit:data.close_permit,
+                //         date:new Date(data.listing.created_on).toLocaleDateString()
+                //     }}
+                //     else
+                //     {
+                //         return{id:value,title:data.listing.title,
+                //             image:{src:data.listing.image,alt:data.listing.title},
+                //             bid:data.bid_data,
+                //             description:data.listing.description,
+                //             owner:data.listing.owner.username,
+                //             comment:data.comments,
+                //             status:data.listing.status,
+                //             belongs_to:data.listing.belongs_to,
+                //             watchlist:data.is_in_watchlist,
+                //             close_permit:data.close_permit,
+                //             date:new Date(data.listing.created_on).toLocaleDateString(),
+                //             balance:data.balance,
+                //             effective_balance:data.effective_balance
+                //         }
+                //     }
+                // });
             
             })
             .catch((err)=>{
@@ -186,8 +190,15 @@ function Lisiting({isLogged,value}) {
             }
             if(err.request.status=='406')
             {
+                if(err.response.data==="Bid need to be greater then intial bid")
+                {
+                e.target.innerText="Bid is small"
+                }
+                else{
                 e.target.innerText='Not Enough Balance'
+                }
             }
+        
         })    
     }
     const commentHandler=(e)=>{
@@ -255,9 +266,10 @@ function Lisiting({isLogged,value}) {
             
         
             {isLogged===true?status==true?
-            <span className="bid-input">
-                <input type='number' value={Bid} onChange={bidHandler}></input><button onClick={bidButton} className="bid">Bid</button>
-            </span>:"":""}
+            
+            <BidData id={data.id} value={Bid} handler={bidHandler} button_click={bidButton} setData={setData} ></BidData>
+            :"":""}
+        
             </div>
             </div>
             
