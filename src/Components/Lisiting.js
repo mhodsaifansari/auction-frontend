@@ -62,7 +62,7 @@ function Lisiting({isLogged,value,setLogged}) {
         
         
         });
-        const newSocket= new WebSocket("ws://127.0.0.1:8000/ws/bid/"+value);
+        const newSocket= new WebSocket("wss://serene-woodland-65663.herokuapp.com/ws/bid/"+value);
         setSocket(newSocket);
         return ()=>{newSocket.close()}
     },[setSocket])
