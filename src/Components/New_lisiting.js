@@ -32,7 +32,7 @@ function New_lisiting() {
        {setsuccess(<div>Loading......</div>)
         authAxios.post(baseurl+"/api/create_list",from)
         .then((response)=>{
-            setsuccess('Listing has been created successfully')
+            setsuccess(<div className="success-create-listing">Listing has been created successfully</div>)
         })
         .catch((err)=>{
             if(err.request.status===400)

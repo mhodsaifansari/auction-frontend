@@ -142,7 +142,7 @@ function Lisiting_group(props) {
           <div className="title-div"><h2>{jsx.title}</h2>
             {props.type=="User"?
               <>
-            <span>Balance:{jsx.balance} Effective Balance :{jsx.effective_balance}</span>
+            <span style={{display:'flex',flexDirection:"column"}} className="balance"><span>Balance:${jsx.balance}</span><span> Effective Balance :${jsx.effective_balance}</span></span>
             </>:""
             }
             {jsx.max_page===1?"":<div className="page-div">{page==1?"":<button className="prev-page"onClick={prevpage}>prev</button>}
@@ -153,7 +153,7 @@ function Lisiting_group(props) {
           
           
           </div>
-          {props.type=="User"&&jsx.user_details!=undefined?<div>
+          {props.type=="User"&&jsx.user_details!=undefined?<div style={{marginLeft:"1.5rem"}}>
             <p>Total Lisitng: {jsx.user_details.Total_listing}</p>
             <p>Active Listing {jsx.user_details.active_listing}</p>
             <p>Lisiting Won: {jsx.user_details.won}</p>

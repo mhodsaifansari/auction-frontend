@@ -4,12 +4,13 @@ import authAxios from '../Hook.js/authenicationHook';
 import getLisitingData from '../Hook.js/getLisitingData';
 import baseurl from '../Hook.js/url';
 import BidData from './BidData';
-function Lisiting({isLogged,value}) {
+function Lisiting({isLogged,value,setLogged}) {
     console.log(value);
     const [data,setData]=useState({id:'',title:'loading...',image:{src:process.env.PUBLIC_URL+'/placeholder.gif',alt:''},bid:'loading...',description:'loading...',owner:'loading...',status:false,belongs_to:null,comment:'',watchlist:false,close_permit:undefined,date:'loading...'});
-   
+    const [socket,setSocket]=useState(null);
    
     useEffect(() => {
+        
         getLisitingData(value)
         .then((data)=>{
             
@@ -53,9 +54,34 @@ function Lisiting({isLogged,value}) {
             
         
         })
-        .catch((err)=>{console.log(err);});
+        .catch((err)=>{console.log(err);
+        if(err.request.status===401){
+            localStorage.removeItem('user');
+            setLogged(false)
+        }
+        
+        
+        });
+        const newSocket= new WebSocket("ws://127.0.0.1:8000/ws/bid/"+value);
+        setSocket(newSocket);
+        return ()=>{newSocket.close()}
+    },[setSocket])
+    if(socket!=null)
+    {
+        socket.onmessage=(data)=>{
+            console.log(data.data);
+            const data_socket=JSON.parse(data.data);
+            if("bid" in data_socket){
+                setData((prev)=>{return {...prev,bid:data_socket.bid}})
+            
+            }
+            if("comment" in data_socket){
 
-    },[])
+                setData((prev)=>{return {...prev,comment:[data_socket.comment,...prev.comment]}})
+                
+            }
+        }
+    }
     const [Comment,setComment]=useState('');
     const [Bid,setBid]=useState();
     const bidHandler=(e)=>{
@@ -66,56 +92,56 @@ function Lisiting({isLogged,value}) {
         authAxios.post(baseurl+"/api/comment/"+value,{'comment_text':Comment})
         .then((data)=>{console.log(data)
             e.target.innerText="post"
-            getLisitingData(value)
-            .then((data)=>{
-                console.log(data);
-                // setData({id:value,title:data.listing.title,
-                //         image:{src:data.listing.image,alt:data.listing.title},
-                //         bid:data.bid_data,
-                //         description:data.listing.description,
-                //         owner:data.listing.owner.username,
-                //         status:data.listing.status,
-                //         comment:data.comments,
-                //         belongs_to:data.listing.belongs_to,
-                //         watchlist:data.is_in_watchlist,
-                //         close_permit:data.close_permit
-                //         });
-                setData((prev)=>{
+            // getLisitingData(value)
+            // .then((data)=>{
+            //     console.log(data);
+            //     // setData({id:value,title:data.listing.title,
+            //     //         image:{src:data.listing.image,alt:data.listing.title},
+            //     //         bid:data.bid_data,
+            //     //         description:data.listing.description,
+            //     //         owner:data.listing.owner.username,
+            //     //         status:data.listing.status,
+            //     //         comment:data.comments,
+            //     //         belongs_to:data.listing.belongs_to,
+            //     //         watchlist:data.is_in_watchlist,
+            //     //         close_permit:data.close_permit
+            //     //         });
+            //     setData((prev)=>{
                 
-                    if(isLogged==false){
-                    return{id:value,title:data.listing.title,
-                        image:{src:data.listing.image,alt:data.listing.title},
-                        bid:data.bid_data,
-                        description:data.listing.description,
-                        owner:data.listing.owner.username,
-                        comment:data.comments,
-                        status:data.listing.status,
-                        belongs_to:data.listing.belongs_to,
-                        watchlist:data.is_in_watchlist,
-                        close_permit:data.close_permit,
-                        date:new Date(data.listing.created_on).toLocaleDateString()
-                    }}
-                    else
-                    {
-                        return{id:value,title:data.listing.title,
-                            image:{src:data.listing.image,alt:data.listing.title},
-                            bid:data.bid_data,
-                            description:data.listing.description,
-                            owner:data.listing.owner.username,
-                            comment:data.comments,
-                            status:data.listing.status,
-                            belongs_to:data.listing.belongs_to,
-                            watchlist:data.is_in_watchlist,
-                            close_permit:data.close_permit,
-                            date:new Date(data.listing.created_on).toLocaleDateString(),
-                            balance:data.balance,
-                            effective_balance:data.effective_balance
-                        }
-                    }
-                });
+            //         if(isLogged==false){
+            //         return{id:value,title:data.listing.title,
+            //             image:{src:data.listing.image,alt:data.listing.title},
+            //             bid:data.bid_data,
+            //             description:data.listing.description,
+            //             owner:data.listing.owner.username,
+            //             comment:data.comments,
+            //             status:data.listing.status,
+            //             belongs_to:data.listing.belongs_to,
+            //             watchlist:data.is_in_watchlist,
+            //             close_permit:data.close_permit,
+            //             date:new Date(data.listing.created_on).toLocaleDateString()
+            //         }}
+            //         else
+            //         {
+            //             return{id:value,title:data.listing.title,
+            //                 image:{src:data.listing.image,alt:data.listing.title},
+            //                 bid:data.bid_data,
+            //                 description:data.listing.description,
+            //                 owner:data.listing.owner.username,
+            //                 comment:data.comments,
+            //                 status:data.listing.status,
+            //                 belongs_to:data.listing.belongs_to,
+            //                 watchlist:data.is_in_watchlist,
+            //                 close_permit:data.close_permit,
+            //                 date:new Date(data.listing.created_on).toLocaleDateString(),
+            //                 balance:data.balance,
+            //                 effective_balance:data.effective_balance
+            //             }
+            //         }
+            //     });
             
-            })
-            .catch((err)=>{console.log(err);})
+            // })
+            // .catch((err)=>{console.log(err);})
         
         })
         .catch((err)=>{console.log(err);})    
@@ -236,25 +262,34 @@ function Lisiting({isLogged,value}) {
     return (
         <div className="listing-parent">
             <div className="listing">
-                <div className="title-div">
-                    <h2>{title}</h2>
-                    <p className="belong_to">by <a href={"../user/"+owner} className="group-link">{owner}</a></p>
-                </div>
+                
             <div className="content-div">    
             <img src={image.src} alt={image.alt} ></img>
-            <div>
-            {isLogged==true?<div><span>Balance {data.balance}</span> <span>Effective Balance {data.effective_balance}</span></div>:""}
-            <span className="current-bid">Current Bid : ${bid}</span>
-            {isLogged===true?
+            <div className="content-details">
+            <div >
+                    <div className="content-title"><h2>Title : {title}</h2> {isLogged===true?
                     watchlist!==undefined?
                         watchlist===false?
                         <button className="watchlist-btn watchlist-add"onClick={addWatchlist}>Add To Watchlist</button>:
                         <button className="watchlist-remove" onClick={addWatchlist}>Remove from watchlist</button>
                     :""
-            :""}
+            :""}</div>
+                    <div>
+                    <p className="belong_to">owner: <a href={"../user/"+owner} className="group-link">{owner}</a></p></div>
+            </div>
+            {/* {isLogged==true?<div><span>Balance {data.balance}</span> <span>Effective Balance {data.effective_balance}</span></div>:""} */}
+           
+            
             <p className="group">Cateogry : {belongs_to==null?"No Cateogry":<a href={'../cateogry/'+belongs_to.text} className="group-link">{belongs_to.text}</a>}</p>
-            <p>created On: {data.date}</p>
-            <pre className="detail">Description : {description}</pre>
+            <p>Created On: {data.date}</p>
+            <div className="detail">Description : <pre>{description}</pre></div>
+            <span className="current-bid">Current Bid : ${bid}</span> 
+            
+            
+            {isLogged===true?status==true?
+            
+            <BidData id={data.id} value={Bid} handler={bidHandler} button_click={bidButton} setData={setData} effective_balance={data.effective_balance} socket={socket}></BidData>
+            :"":""}
             {isLogged===true?
                     close_permit!==undefined?
                         close_permit===true?
@@ -263,12 +298,6 @@ function Lisiting({isLogged,value}) {
                         ""
                     :""
             :""}
-            
-        
-            {isLogged===true?status==true?
-            
-            <BidData id={data.id} value={Bid} handler={bidHandler} button_click={bidButton} setData={setData} ></BidData>
-            :"":""}
         
             </div>
             </div>
@@ -276,21 +305,21 @@ function Lisiting({isLogged,value}) {
             
             </div>
             <div className="comment-section">
-            <h4>Comments</h4>
+            
                 <hr></hr>
                 {isLogged===true?<div>
-                <h5 className="comment-h5">Comment</h5>
-                <textarea className="comment-textarea"value={Comment} onChange={commentHandler}></textarea>
-                <button onClick={commentButton} className="comment-btn post-comment">post</button>
+                <h4 className="comment-h5">{comment.length} Comment</h4>
+                <div className="comment-input-div"><textarea className="comment-textarea"value={Comment} onChange={commentHandler} rows="1"></textarea>
+                <button onClick={commentButton} className="comment-btn post-comment">post</button></div>
             </div>:""}
-                {comment===''?<h4>Loading...</h4>:comment.length===0?<h4>No comment</h4>:comment.map((c)=>{
-        console.log(c);
-        return(<>
-       
-        <div className="comment-div">
-            <h5>{c.comment_by.username}</h5>
-            <pre>{c.text}</pre>            
-        </div></>)})}
+                {comment===''?<h4>Loading...</h4>:comment.length===0?<h4>No comment</h4>:
+                
+                comment.map((c)=>{
+            return(<>
+            <div className="comment-div">
+                <h5>{c.comment_by.username}</h5>
+                <pre>{c.text}</pre>            
+            </div></>)})}
             </div>
         </div>
     )
