@@ -140,14 +140,17 @@ function Lisiting_group(props) {
   return (
         <div className="card-container" >
           <div className="title-div"><h2>{jsx.title}</h2>
+            <div>
             {props.type=="User"?
               <>
+            
             <span style={{display:'flex',flexDirection:"column"}} className="balance"><span>Balance:${jsx.balance}</span><span> Effective Balance :${jsx.effective_balance}</span></span>
             </>:""
             }
             {jsx.max_page===1?"":<div className="page-div">{page==1?"":<button className="prev-page"onClick={prevpage}>prev</button>}
             <span>{page}/{jsx.max_page}</span>
             {page==jsx.max_page?"":<button onClick={nextpage} className="next-page">next</button>}</div>}
+            </div>
           </div>
           <div>
           
