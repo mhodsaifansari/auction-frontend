@@ -37,18 +37,23 @@ $text-color-light:$light4;
     @include btn($light3,lighten($light3,5%))
 }
 .watchlist-add{
-    @include btn($light3,lighten($light3,5%))
+    @include btn($light3,lighten($light3,5%));
+    height:fit-content;
+    margin: 1rem;
 }
 .watchlist-remove{
     @include btn($close,lighten($close,5%));
+    height:fit-content;
+    margin: 1rem;
 }
 .bid{
     @include btn($dark2,lighten($dark2,10%));
-    padding: 0.2rem
+    padding: 0.3rem;
+    margin: 0.3rem;
 }
 .post-comment{
     @include btn($dark2,lighten($dark2,10%));
-    padding: 0.4rem;
+ margin-left: 0.3rem;
 }
 .register{
     @include btn($dark2,lighten($dark2,10%))
@@ -98,4 +103,15 @@ $text-color-light:$light4;
 }
 .register-link{
     @include link($dark4,darken($dark4,20%) );
+}
+
+
+
+
+.success-create-listing{
+    border-radius: 0.3rem;            
+    border: solid;
+    border-width: 0.09rem;
+    padding: 0.3rem;
+    color: $dark3;
 }

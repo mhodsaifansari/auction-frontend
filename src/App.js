@@ -20,11 +20,14 @@ import Nav_Component from './Components/Nav_Component';
 import Register from './Components/Register';
 import authAxios from './Hook.js/authenicationHook';
 import User from './Components/User';
+import AboutPage from './Components/AboutPage';
 
 function checklogin()
 {
   try{
-    if(JSON.parse(localStorage.getItem('user')).loggedIn===true)
+    let checkLogged=JSON.parse(localStorage.getItem('user'))
+    
+    if(checkLogged.loggedIn===true)
     {
     
     return true;
@@ -38,8 +41,8 @@ function checklogin()
   }
   catch(err)
   {
-    console.log(err);
-    return false
+    
+    return false;
   }
 }
 
@@ -50,7 +53,7 @@ function App() {
  const history = useHistory();
  const lisiting=({location,match})=>{
     const id=location['pathname'].replace(match.url+'/',"");
-    return (<Route path={match.url+'/'+id} ><Lisiting isLogged={isLogged} value={id}></Lisiting></Route>)
+    return (<Route path={match.url+'/'+id} ><Lisiting isLogged={isLogged} value={id} setLogged={setLogged}></Lisiting></Route>)
   }
   const redirect_jsx=(jsx)=>{
                         
@@ -77,7 +80,10 @@ function App() {
           
           <Route exact path="/"> 
           
-            <Lisiting_group type="Active" list_data={listing_data}></Lisiting_group>
+            <Lisiting_group type="Active" list_data={listing_data} setLogged={setLogged}></Lisiting_group>
+        </Route>
+        <Route exact path="/about">
+          <AboutPage></AboutPage>  
         </Route>
         <Route path='/add-new-lisiting'>
            

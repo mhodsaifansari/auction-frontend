@@ -29,10 +29,10 @@ function New_lisiting() {
         
        console.log(from);
        if(from.title!=''&&from.description!=""&&from.bid!='')
-       {setsuccess("Loading......")
+       {setsuccess(<div>Loading......</div>)
         authAxios.post(baseurl+"/api/create_list",from)
         .then((response)=>{
-            setsuccess('LisTIng has been created successfully')
+            setsuccess(<div className="success-create-listing">Listing has been created successfully</div>)
         })
         .catch((err)=>{
             if(err.request.status===400)
@@ -62,7 +62,7 @@ function New_lisiting() {
     return (
         <div className="new-listing-form">
             <h3>Create a New Lisiting</h3>
-            <div className="listing-success">{success}</div>
+            <div className="listing-success nothing-div">{success}</div>
             <form>
                 <div>
                     <label for="title">Name :</label>

@@ -13,7 +13,7 @@ function Cateogry({match}) {
             })
             .catch((err)=>{
                 if(err.request){
-                    setList("Network issue please check your network and try again later");
+                    setList(<div>Network issue please check your network and try again later</div>);
                 }  
                 else if(err.response){
                     setList(err.data);
@@ -25,7 +25,7 @@ function Cateogry({match}) {
     return (
         <div>
             <ul>
-            {list_c===''?"Loading":list_c}
+            {list_c===''?<div>Loading....</div>:list_c}
             </ul>
         </div>
     )

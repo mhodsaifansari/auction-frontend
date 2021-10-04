@@ -25,11 +25,15 @@ $dark4:rgb(238, 238, 238);
       display: flex;
       flex-direction: row;
       align-items: center;
+      
     }
 }
 .title{
   display: flex;
   align-items: center;
+  img{
+    min-width: 50px;
+  }
 }
 .nav-btn
 {
@@ -61,6 +65,15 @@ nav
     }
     
 }
+.nothing-div{
+  margin: 1rem;
+  border-radius: 0.3rem;
+  padding: 0.25rem;
+ 
+  text-align: center;
+  width: 97vw;
+}
+
 .card
 {
 display: flex;
@@ -73,6 +86,7 @@ border-radius: 0.3rem;
 margin-left: 1rem;
 padding: 0.25rem;
 padding-bottom: 0.5rem;
+    
     img
     {
 
@@ -110,8 +124,12 @@ padding-bottom: 0.5rem;
         font-weight: 400;  
         padding: 0.2rem;
         }
-        span{
+        .balance{
           padding: 0.2rem;
+          margin-right: 3rem;
+        }
+        .current-bid{
+          padding: 00.2rem;
         }
         h2
     {
@@ -164,23 +182,45 @@ padding-bottom: 0.5rem;
     }
     .content-div{
       display: flex;
-      div{
+      .content-details{
         margin-left: 5rem;
       }
       .current-bid{
         margin-right:1rem ;
       }
+      .content-title
+      {
+        display: flex;
+        align-items: center;
+
+      }
       img{
         width: 50%;
+        height: fit-content;
         max-width: 400px;
         min-width: 150px;
+
         }
     }
   }
 }
 .comment-section{
  h4,div{
-   margin-left:1rem;
+   margin-left:1.4rem;
+ }
+ 
+ .comment-h5{
+   margin-top:0;
+   margin-left: 0;
+ }
+ .comment-textarea{
+   resize: none;
+   height: 1rem;
+ }
+ .comment-input-div{
+   display: flex;
+   align-items: center;
+   margin-left: 0;
  }
 }
 .new-listing-form{
@@ -257,12 +297,19 @@ padding-bottom: 0.5rem;
     {
       width: 100%;
     }
+    .listing{
+      margin: 0.3rem !important;
     .content-div{
       flex-direction:column; 
        div{
          margin-left: 0rem !important;
        }
-    }
+       img{
+         width: 80% !important;
+         max-width: auto !important;
+         align-self: center !important;
+       }
+    }}
     .new-listing-form{
       form{
         max-width: 90% !important;
@@ -271,6 +318,23 @@ padding-bottom: 0.5rem;
           width: 90% !important;
           max-width: 90% !important;
         }
+      }
+    }
+    .comment-section{
+      div{
+        margin-left: 0.3rem !important;
+      }
+      .comment-input-div{
+        margin-left: 00.3rem !important;
+      }
+    }
+    .title-div{
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      .balance{
+        
+        margin-left: 1.5rem;
+        
       }
     }
 }

@@ -14,6 +14,7 @@ const  getLisitingData= (id)=>{
             dataActiveLisiting.id=id;
             resolve(dataActiveLisiting);})
         .catch((err)=>{
+            console.log(err.request.status)
             reject(err);
         })
     }else{
