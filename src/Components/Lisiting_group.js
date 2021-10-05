@@ -111,6 +111,9 @@ function Lisiting_group(props) {
                       if(err.response.status===404){
                         set_jsx({list:<div className="nothing-div">No such User</div>,title:"Username : "+ props.username,max_page:1})
                     }
+                    if(err.response.status===400){
+                      set_jsx({list:<div className="nothing-div">Please Login</div>,title:"",max_page:1})
+                    }
                       
                     }
                     else if(err.request){

@@ -115,3 +115,29 @@ $text-color-light:$light4;
     padding: 0.3rem;
     color: $dark3;
 }
+
+
+.login-div-form{
+    
+    display: flex;
+    justify-content: center;
+}
+.login-form{
+
+    justify-content: center;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    div{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+    }
+}
+@media screen and (max-width:510px) {
+    .login-form{
+        width: 80% !important;
+    }
+}

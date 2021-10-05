@@ -92,56 +92,7 @@ function Lisiting({isLogged,value,setLogged}) {
         authAxios.post(baseurl+"/api/comment/"+value,{'comment_text':Comment})
         .then((data)=>{console.log(data)
             e.target.innerText="post"
-            // getLisitingData(value)
-            // .then((data)=>{
-            //     console.log(data);
-            //     // setData({id:value,title:data.listing.title,
-            //     //         image:{src:data.listing.image,alt:data.listing.title},
-            //     //         bid:data.bid_data,
-            //     //         description:data.listing.description,
-            //     //         owner:data.listing.owner.username,
-            //     //         status:data.listing.status,
-            //     //         comment:data.comments,
-            //     //         belongs_to:data.listing.belongs_to,
-            //     //         watchlist:data.is_in_watchlist,
-            //     //         close_permit:data.close_permit
-            //     //         });
-            //     setData((prev)=>{
-                
-            //         if(isLogged==false){
-            //         return{id:value,title:data.listing.title,
-            //             image:{src:data.listing.image,alt:data.listing.title},
-            //             bid:data.bid_data,
-            //             description:data.listing.description,
-            //             owner:data.listing.owner.username,
-            //             comment:data.comments,
-            //             status:data.listing.status,
-            //             belongs_to:data.listing.belongs_to,
-            //             watchlist:data.is_in_watchlist,
-            //             close_permit:data.close_permit,
-            //             date:new Date(data.listing.created_on).toLocaleDateString()
-            //         }}
-            //         else
-            //         {
-            //             return{id:value,title:data.listing.title,
-            //                 image:{src:data.listing.image,alt:data.listing.title},
-            //                 bid:data.bid_data,
-            //                 description:data.listing.description,
-            //                 owner:data.listing.owner.username,
-            //                 comment:data.comments,
-            //                 status:data.listing.status,
-            //                 belongs_to:data.listing.belongs_to,
-            //                 watchlist:data.is_in_watchlist,
-            //                 close_permit:data.close_permit,
-            //                 date:new Date(data.listing.created_on).toLocaleDateString(),
-            //                 balance:data.balance,
-            //                 effective_balance:data.effective_balance
-            //             }
-            //         }
-            //     });
-            
-            // })
-            // .catch((err)=>{console.log(err);})
+           
         
         })
         .catch((err)=>{console.log(err);})    
@@ -155,53 +106,7 @@ function Lisiting({isLogged,value,setLogged}) {
             getLisitingData(value)
             .then((data)=>{
                 console.log(data);
-                // setData({id:value,title:data.listing.title,
-                //         image:{src:data.listing.image,alt:data.listing.title},
-                //         bid:data.bid_data,
-                //         description:data.listing.description,
-                //         owner:data.listing.owner.username,
-                //         status:data.listing.status,
-                //         comment:data.comments,
-                //         belongs_to:data.listing.belongs_to,
-                //         watchlist:data.is_in_watchlist,
-                //         close_permit:data.close_permit
-                //         });
-
-
-
-                // setData((prev)=>{
                 
-                //     if(isLogged==false){
-                //     return{id:value,title:data.listing.title,
-                //         image:{src:data.listing.image,alt:data.listing.title},
-                //         bid:data.bid_data,
-                //         description:data.listing.description,
-                //         owner:data.listing.owner.username,
-                //         comment:data.comments,
-                //         status:data.listing.status,
-                //         belongs_to:data.listing.belongs_to,
-                //         watchlist:data.is_in_watchlist,
-                //         close_permit:data.close_permit,
-                //         date:new Date(data.listing.created_on).toLocaleDateString()
-                //     }}
-                //     else
-                //     {
-                //         return{id:value,title:data.listing.title,
-                //             image:{src:data.listing.image,alt:data.listing.title},
-                //             bid:data.bid_data,
-                //             description:data.listing.description,
-                //             owner:data.listing.owner.username,
-                //             comment:data.comments,
-                //             status:data.listing.status,
-                //             belongs_to:data.listing.belongs_to,
-                //             watchlist:data.is_in_watchlist,
-                //             close_permit:data.close_permit,
-                //             date:new Date(data.listing.created_on).toLocaleDateString(),
-                //             balance:data.balance,
-                //             effective_balance:data.effective_balance
-                //         }
-                //     }
-                // });
             
             })
             .catch((err)=>{

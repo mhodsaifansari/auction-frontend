@@ -12,6 +12,14 @@ function Login({isLogged,setLogged}) {
     const passwordHandler=(e)=>{set_form_data((prevState)=>{return {'username':prevState.username,'password':e.target.value}})};
     const submitHandler=(e)=>
     {   e.preventDefault();
+       console.log(e.target)
+        e.target.textContent="Loading..."
+        if(form_data.username===''||form_data.password==='')
+        {
+            setStatus("Empty field")
+        }
+        else
+        {
         loginHook(form_data.username,form_data.password)
     .then((data)=>{console.log(data);
 
@@ -37,13 +45,15 @@ function Login({isLogged,setLogged}) {
         }
     
     
-    })                        
+    })  
+    }
+      e.target.textContent="Login"                
     }
     return (
-        <div>
-            <div>{status}</div>
-            {isLogged===true?<button onClick={()=>{logoutHook(setLogged)}}>want to logout</button>:(<form >
-                
+        <div className="login-div-form">
+            
+            {isLogged===true?<button onClick={()=>{logoutHook(setLogged)}}>want to logout</button>:(<form className="login-form">
+            <span style={{textAlign:"center"}}>{status}</span>
                 <div>
                     <label for="username">Enter Username: </label>
                     <input type="text" id="username" onChange={usernameHandler}></input>

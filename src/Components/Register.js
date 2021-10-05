@@ -47,21 +47,21 @@ function Register({isLogged,setLogged}) {
 
     }
     return (
-        <div>
+        <div className="login-div-form">
             <div>
                 {status}
             </div>
-            <form > 
+            <form className="login-form"> 
                 <div>
                     <label for="username">Username</label>
                     <input type="text" id="username" onChange={(e)=>{inputHandler(e,'username')}} value={data.username}></input>
                 </div>
                 <div>
-                    <label for="password">password</label>
+                    <label for="password">Password</label>
                     <input type="password" id="password" onChange={(e)=>{inputHandler(e,'password')}}  value={data.password}></input>
                 </div>
                 <div>
-                    <label for="confirmation">re-enter password</label>
+                    <label for="confirmation">Re-enter Password</label>
                     <input type="password" id="confirmation" onChange={(e)=>{inputHandler(e,'confirmation')}} value={data.confirmation}></input>
                 </div>
                 <div>
