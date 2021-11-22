@@ -124,7 +124,14 @@ function App() {
           
           (route)=>{
             console.log(route)
-            return lisiting(route)}
+            if(isLogged==true){
+            return lisiting(route);
+            }
+            else
+            {
+              return <Redirect to="/login"></Redirect>
+            }
+        }
         
         
         }></Route>
