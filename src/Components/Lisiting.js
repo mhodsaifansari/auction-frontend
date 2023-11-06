@@ -4,6 +4,7 @@ import authAxios from '../Hook.js/authenicationHook';
 import getLisitingData from '../Hook.js/getLisitingData';
 import baseurl from '../Hook.js/url';
 import BidData from './BidData';
+import wss_url from '../Hook.js/web_socket_url';
 function Lisiting({isLogged,value,setLogged}) {
     console.log(value);
     const [data,setData]=useState({id:'',title:'loading...',image:{src:process.env.PUBLIC_URL+'/placeholder.gif',alt:''},bid:'loading...',description:'loading...',owner:'loading...',status:false,belongs_to:null,comment:'',watchlist:false,close_permit:undefined,date:'loading...'});
@@ -62,7 +63,7 @@ function Lisiting({isLogged,value,setLogged}) {
         
         
         });
-        const newSocket= new WebSocket("wss://serene-woodland-65663.herokuapp.com/ws/bid/"+value);
+        const newSocket= new WebSocket(wss_url+"/ws/bid/"+value);
         setSocket(newSocket);
         return ()=>{newSocket.close()}
     },[setSocket])
